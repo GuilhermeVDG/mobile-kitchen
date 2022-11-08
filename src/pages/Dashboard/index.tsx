@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackParamsList } from "../../routes/app.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { api } from "../../services/api";
 
 export default function Dashboard(){
   const { signOut } = useContext(AuthContext);
@@ -14,8 +15,21 @@ export default function Dashboard(){
 
   async function handleOpenOrder(){
     if(!table) return;
+
+    try {
+      const response = await api.post('/order', { 
+        table: ~~table
+      });
+
+      navigation.navigate('Order', { table, order_id: response.data.id });
+
+      setTable('');
+    } catch (error) {
+      console.log(error); 
+    }
     
-    navigation.navigate('Order', { table, order_id: '' });
+    
+    
   }
   
   return(
