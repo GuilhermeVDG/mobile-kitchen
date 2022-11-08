@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { useRoute, RouteProp } from '@react-navigation/native';
+import { Feather } from '@expo/vector-icons';
 
 type RouteDetailParams = {
   Order: {
@@ -16,8 +17,24 @@ export default function Order(){
   
   return(
     <View style={styles.container}>
-      <Text style={styles.title}>Order Screen</Text>
-      <Text>{route.params.table}</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Mesa {route.params.table}</Text>
+        <TouchableOpacity>
+          <Feather name='trash-2' size={28} color='#ff2f4b'/>
+        </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style={styles.input}>
+        <Text style={{ color:'#fff' }}>Hamburgueres</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.input}>
+        <Text style={{ color: '#fff' }}>Cheddar com bacon</Text>
+      </TouchableOpacity>
+
+      <View style={styles.qttContainer}>
+        <Text style={styles.qttText}>Quantidade</Text>
+        <TextInput style={[styles.input, { width: '60%', textAlign: 'center' }]} placeholder='quantidade' placeholderTextColor='#F0F0F0' keyboardType='numeric' value='1'/>
+      </View>
     </View>
   )
 }
@@ -25,13 +42,41 @@ export default function Order(){
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1d1d2e',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
+    flex: 1,
+    paddingVertical: '5%',
+    paddingHorizontal: '4%'
   },
   title: {
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#fff'
+    color: '#fff',
+    marginRight: 14
+  },
+  header: {
+    flexDirection: 'row',
+    marginBottom: 12,
+    alignItems: 'center',
+    marginTop: 24
+  },
+  input: {
+    backgroundColor: '#101026',
+    color: '#fff',
+    fontSize: 20,
+    borderRadius: 4,
+    height: 40,
+    marginBottom: 12,
+    justifyContent: 'center',
+    paddingHorizontal: 8,
+    width: '100%',
+  },
+  qttContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  qttText: {
+    fontSize: 20,
+    color:'#fff',
+    fontWeight: 'bold'
   }
 })
