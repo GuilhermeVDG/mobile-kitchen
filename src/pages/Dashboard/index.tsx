@@ -1,17 +1,37 @@
 import React, { useContext, useState } from "react";
 import { View, Text, TouchableOpacity, SafeAreaView, TextInput, StyleSheet } from "react-native";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigation } from "@react-navigation/native";
+import { StackParamsList } from "../../routes/app.routes";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export default function Dashboard(){
   const { signOut } = useContext(AuthContext);
+
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamsList>>();
+
+  const [table, setTable] = useState('');
+
+  async function handleOpenOrder(){
+    if(!table) return;
+    
+    navigation.navigate('Order', { table, order_id: '' });
+  }
   
   return(
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Novo Pedido</Text>
 
-      <TextInput keyboardType="numeric" style={styles.textInput} placeholder="Insira o número da mesa" placeholderTextColor='#f0f0f0'/>
+      <TextInput 
+        keyboardType="numeric"
+        style={styles.textInput}
+        placeholder="Insira o número da mesa"
+        placeholderTextColor='#f0f0f0'
+        value={table}
+        onChangeText={setTable}
+      />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleOpenOrder}>
         <Text style={styles.buttonText}>Abrir mesa</Text>
       </TouchableOpacity>
     </SafeAreaView>
