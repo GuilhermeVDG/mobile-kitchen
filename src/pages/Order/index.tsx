@@ -35,6 +35,16 @@ export default function Order(){
         <Text style={styles.qttText}>Quantidade</Text>
         <TextInput style={[styles.input, { width: '60%', textAlign: 'center' }]} placeholder='quantidade' placeholderTextColor='#F0F0F0' keyboardType='numeric' value='1'/>
       </View>
+
+      <View style={styles.actions}>
+        <TouchableOpacity style={styles.buttonAdd}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonAdvance}>
+          <Text style={styles.buttonText}>Avançar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -78,5 +88,32 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color:'#fff',
     fontWeight: 'bold'
+  },
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    justifyContent: 'space-between'
+  },
+  buttonAdd: {
+    width: '25%',
+    height: 40,
+    backgroundColor: '#3fd1ff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4
+  },
+  buttonAdvance: {
+    backgroundColor: '#3fffa3',
+    height: 40,
+    width: '70%',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    color:'#101026',
+    fontWeight: 'bold',
+    fontSize: 18
   }
 })
