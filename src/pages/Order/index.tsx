@@ -94,16 +94,36 @@ export default function Order(){
   }
 
   const handleAddItem = async () => {
-    alert('oi')
+    try {
+      const response = await api.post('/order/add', {
+        product_id: productSelected?.id,
+        amount: ~~amount,
+        order_id: route.params?.order_id
+      });
+
+      const data = {
+        id: response?.data.id,
+        product_id: productSelected?.id as string,
+        name: productSelected?.name as string,
+        amount: amount
+      }
+
+      setItems(old => [...old, data]);
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   return(
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Mesa {route.params?.table}</Text>
-        <TouchableOpacity onPress={handleCloseOrder}>
-          <Feather name='trash-2' size={28} color='#ff2f4b'/>
-        </TouchableOpacity>
+        {!items.length && (
+          <TouchableOpacity onPress={handleCloseOrder}>
+            <Feather name='trash-2' size={28} color='#ff2f4b'/>
+          </TouchableOpacity>
+        )}
       </View>
 
       {categories.length !== 0 && (
