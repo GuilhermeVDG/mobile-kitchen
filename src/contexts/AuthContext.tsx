@@ -39,13 +39,15 @@ export function AuthProvider({children}: AuthProviderProps){
     token: ''
   });
 
+
   const [loading, setLoading] = useState(true);
   const [loadingAuth, setLoadingAuth] = useState(false);
 
   const isAuthenticated = !!user.token;
 
+
   useEffect(() => {
-    (async function getUser(){
+    async function getUser(){
       const userData = await AsyncStorage.getItem('@mykitchen');
       const hasUser: UserProps = JSON.parse(userData || '{}');
 
@@ -55,14 +57,17 @@ export function AuthProvider({children}: AuthProviderProps){
           name: hasUser.name,
           email: hasUser.email,
           token: hasUser.token
-        })
+        });
+        
         
         api.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
 
         setLoading(false);
       }
-    })()
-  }, []);
+    }
+
+    getUser();
+  }, [isAuthenticated]);
 
   async function signIn({ email, password }: SignInProps){
     
