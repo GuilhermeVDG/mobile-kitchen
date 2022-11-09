@@ -21,7 +21,7 @@ export default function Dashboard(){
         table: ~~table
       });
 
-      navigation.navigate('Order', { table, order_id: response.data.id });
+      navigation.navigate('Order', { table, order_id: response.data.id });      
 
       setTable('');
     } catch (error) {
