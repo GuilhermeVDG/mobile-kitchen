@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
@@ -11,12 +11,34 @@ type RouteDetailParams = {
   }
 }
 
+type CategoryProps = {
+  id: string;
+  name: string;
+}
+
 type OrderRouteProps = RouteProp<RouteDetailParams, 'Order'>
 
 export default function Order(){
   
   const route = useRoute<OrderRouteProps>();
   const navigation = useNavigation();
+
+  const [categories, setCategories] = useState<CategoryProps[] | []>([]);
+  const [categorySelected, setCategorySelected] = useState<CategoryProps>();
+  const [amount, setAmount] = useState('1');
+
+
+  useEffect(() => {
+    async function loadInfo(){
+      const response = await api.get('/category');
+      
+      setCategories(response.data);
+      setCategorySelected(response.data[0]);
+      
+    }
+
+    loadInfo();
+  }, []);
 
   const handleCloseOrder = async () => {
     try {
@@ -37,16 +59,20 @@ export default function Order(){
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.input}>
-        <Text style={{ color:'#fff' }}>Hamburgueres</Text>
+      {categories.length !== 0 && (
+        <TouchableOpacity style={styles.input}>
+        <Text style={{ color:'#fff' }}>{categorySelected?.name}</Text>
       </TouchableOpacity>
+      )}
+
+
       <TouchableOpacity style={styles.input}>
         <Text style={{ color: '#fff' }}>Cheddar com bacon</Text>
       </TouchableOpacity>
 
       <View style={styles.qttContainer}>
         <Text style={styles.qttText}>Quantidade</Text>
-        <TextInput style={[styles.input, { width: '60%', textAlign: 'center' }]} placeholder='quantidade' placeholderTextColor='#F0F0F0' keyboardType='numeric' value='1'/>
+        <TextInput style={[styles.input, { width: '60%', textAlign: 'center' }]} placeholder='quantidade' placeholderTextColor='#F0F0F0' keyboardType='numeric' value={amount} onChangeText={setAmount}/>
       </View>
 
       <View style={styles.actions}>
