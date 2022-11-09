@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Modal } from 'react-native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { api } from '../../services/api';
+import { ModalPicker } from '../../components/ModalPicker';
 
 type RouteDetailParams = {
   Order: {
@@ -11,7 +12,7 @@ type RouteDetailParams = {
   }
 }
 
-type CategoryProps = {
+export type CategoryProps = {
   id: string;
   name: string;
 }
@@ -26,6 +27,7 @@ export default function Order(){
   const [categories, setCategories] = useState<CategoryProps[] | []>([]);
   const [categorySelected, setCategorySelected] = useState<CategoryProps>();
   const [amount, setAmount] = useState('1');
+  const [modalCategoryVisible, setModalCategoryVisible] = useState(false);
 
 
   useEffect(() => {
@@ -50,6 +52,10 @@ export default function Order(){
     }
   }
   
+  const handleCategorySelected = (item: CategoryProps) => {
+    setCategorySelected(item);
+  }
+
   return(
     <View style={styles.container}>
       <View style={styles.header}>
@@ -60,7 +66,7 @@ export default function Order(){
       </View>
 
       {categories.length !== 0 && (
-        <TouchableOpacity style={styles.input}>
+        <TouchableOpacity style={styles.input} onPress={() => setModalCategoryVisible(true)}>
         <Text style={{ color:'#fff' }}>{categorySelected?.name}</Text>
       </TouchableOpacity>
       )}
@@ -84,6 +90,11 @@ export default function Order(){
           <Text style={styles.buttonText}>Avançar</Text>
         </TouchableOpacity>
       </View>
+
+      <Modal transparent={true} visible={modalCategoryVisible} animationType='fade'>
+        <ModalPicker handleCloseModal={() => setModalCategoryVisible(false)} options={categories} selectedItem={handleCategorySelected}/>
+      </Modal>
+
     </View>
   )
 }
