@@ -80,6 +80,10 @@ export default function Order(){
     setCategorySelected(item);
   }
 
+  const handleProductSelected = (item: ProductProps) => {
+    setProductSelected(item);
+  }
+
   return(
     <View style={styles.container}>
       <View style={styles.header}>
@@ -103,7 +107,12 @@ export default function Order(){
 
       <View style={styles.qttContainer}>
         <Text style={styles.qttText}>Quantidade</Text>
-        <TextInput style={[styles.input, { width: '60%', textAlign: 'center' }]} placeholder='quantidade' placeholderTextColor='#F0F0F0' keyboardType='numeric' value={amount} onChangeText={setAmount}/>
+        <TextInput 
+          style={[styles.input, { width: '60%', textAlign: 'center' }]} 
+          placeholder='quantidade' placeholderTextColor='#F0F0F0' 
+          keyboardType='numeric' value={amount} 
+          onChangeText={setAmount}
+        />
       </View>
 
       <View style={styles.actions}>
@@ -117,7 +126,19 @@ export default function Order(){
       </View>
 
       <Modal transparent={true} visible={modalCategoryVisible} animationType='fade'>
-        <ModalPicker handleCloseModal={() => setModalCategoryVisible(false)} options={categories} selectedItem={handleCategorySelected}/>
+        <ModalPicker 
+          handleCloseModal={() => setModalCategoryVisible(false)} 
+          options={categories} 
+          selectedItem={handleCategorySelected}
+        />
+      </Modal>
+
+      <Modal transparent={true} visible={modalProductVisible} animationType='fade'>
+        <ModalPicker
+          handleCloseModal={() => setModalProductVisible(false)}
+          options={products}
+          selectedItem={handleProductSelected}
+        />
       </Modal>
 
     </View>
