@@ -134,7 +134,7 @@ export default function Order(){
   }
 
   const handleAdvance = () => {
-    navigation.navigate('FinishOrder');
+    navigation.navigate('FinishOrder', { table: route.params?.table, order_id: route.params?.order_id });
   }
 
   return(
