@@ -5,14 +5,20 @@ import { Feather } from '@expo/vector-icons';
 
 interface ListItemProps{
   data: ItemProps;
+  deleteItem: (item_id: string) => void;
 }
 
-export function ListItem({ data }: ListItemProps){
+export function ListItem({ data, deleteItem }: ListItemProps){
+  const handleDeleteItem = async () => {
+    deleteItem(data.id);
+  }
+  
+  
   return(
     <View style={styles.container}>
       <Text style={styles.item}>{data.amount} x {data.name}</Text>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleDeleteItem}>
         <Feather name='trash-2' size={25} color='#ff2f4b'/>
       </TouchableOpacity>
     

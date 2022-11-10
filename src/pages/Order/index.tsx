@@ -115,6 +115,22 @@ export default function Order(){
 
   }
 
+  const handleDeleteItem = async (item_id: string) => {
+    try {
+      await api.delete('/order/remove', {
+        params:{
+          item_id: item_id
+        }
+      });
+
+      const newItems = items.filter(item => item.id !== item_id);
+
+      setItems(newItems);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return(
     <View style={styles.container}>
       <View style={styles.header}>
@@ -142,7 +158,7 @@ export default function Order(){
         <Text style={styles.qttText}>Quantidade</Text>
         <TextInput 
           style={[styles.input, { width: '60%', textAlign: 'center' }]} 
-          placeholder='quantidade' placeholderTextColor='#F0F0F0' 
+          placeholder='Quantidade' placeholderTextColor='#F0F0F0' 
           keyboardType='numeric' value={amount} 
           onChangeText={setAmount}
         />
@@ -166,7 +182,7 @@ export default function Order(){
         style={{ flex: 1, marginTop: 24 }}
         data={items}
         keyExtractor={item => item.id}
-        renderItem={ ({item}) => <ListItem data={item}/> }
+        renderItem={ ({item}) => <ListItem data={item} deleteItem={handleDeleteItem}/> }
       />
 
       <Modal transparent={true} visible={modalCategoryVisible} animationType='fade'>
