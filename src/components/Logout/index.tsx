@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Header(){
+  const { signOut } = useContext(AuthContext);
+
   return(
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={signOut}>
         <AntDesign name='logout' size={25} color='#fff'/>
       </TouchableOpacity>
     </View>

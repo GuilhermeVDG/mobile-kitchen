@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Text, TouchableOpacity, SafeAreaView, TextInput, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, SafeAreaView, TextInput, StyleSheet } from "react-native";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackParamsList } from "../../routes/app.routes";
