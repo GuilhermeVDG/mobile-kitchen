@@ -21,6 +21,7 @@ const Stack = createNativeStackNavigator<StackParamsList>();
 export default function AppRoutes(){
   return(
     <Stack.Navigator>
+      
       <Stack.Screen  name='Dashboard' component={Dashboard} options={{ headerShown: false }}/>
 
       <Stack.Screen name='Order' component={Order} options={{ headerShown: false }}/> 

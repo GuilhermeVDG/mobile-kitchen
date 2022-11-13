@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackParamsList } from "../../routes/app.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { api } from "../../services/api";
+import Logout from '../../components/Logout';
 
 export default function Dashboard(){
   const { signOut } = useContext(AuthContext);
@@ -33,21 +34,27 @@ export default function Dashboard(){
   }
   
   return(
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Novo Pedido</Text>
+    <SafeAreaView style={styles.logout}>
+      <Logout/>
 
-      <TextInput 
-        keyboardType="numeric"
-        style={styles.textInput}
-        placeholder="Insira o número da mesa"
-        placeholderTextColor='#f0f0f0'
-        value={table}
-        onChangeText={setTable}
-      />
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.title}>Novo Pedido</Text>
 
-      <TouchableOpacity style={styles.button} onPress={handleOpenOrder}>
-        <Text style={styles.buttonText}>Abrir mesa</Text>
-      </TouchableOpacity>
+        <TextInput 
+          keyboardType="numeric"
+          style={styles.textInput}
+          placeholder="Insira o número da mesa"
+          placeholderTextColor='#f0f0f0'
+          value={table}
+          onChangeText={setTable}
+        />
+
+        <TouchableOpacity style={styles.button} onPress={handleOpenOrder}>
+          <Text style={styles.buttonText}>Abrir mesa</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+
+      
     </SafeAreaView>
   )
 }
@@ -89,5 +96,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: '#101026'
+  },
+  logout: {
+    marginTop: 0,
+    flex: 1,
+    backgroundColor: '#1d1d2e'
   }
 })
