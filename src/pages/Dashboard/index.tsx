@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Text, TouchableOpacity, SafeAreaView, TextInput, StyleSheet } from "react-native";
-import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { StackParamsList } from "../../routes/app.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -8,7 +7,6 @@ import { api } from "../../services/api";
 import Logout from '../../components/Logout';
 
 export default function Dashboard(){
-  const { signOut } = useContext(AuthContext);
 
   const navigation = useNavigation<NativeStackNavigationProp<StackParamsList>>();
 
