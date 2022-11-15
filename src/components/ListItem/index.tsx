@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { ItemProps } from '../../pages/Order';
 import { Feather } from '@expo/vector-icons';
