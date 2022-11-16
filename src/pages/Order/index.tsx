@@ -150,13 +150,15 @@ export default function Order(){
 
       {categories.length !== 0 && (
         <TouchableOpacity style={styles.input} onPress={() => setModalCategoryVisible(true)}>
-        <Text style={{ color:'#fff' }}>{categorySelected?.name}</Text>
-      </TouchableOpacity>
+          <Text style={{ color:'#fff' }}>{categorySelected?.name}</Text>
+          <Feather size={25} name='chevron-down' color='#fff'/>
+        </TouchableOpacity>
       )}
 
       {products.length !== 0 && (
         <TouchableOpacity style={styles.input} onPress={() => setModalProductVisible(true)}>
           <Text style={{ color: '#fff' }}>{productSelected?.name}</Text>
+          <Feather size={25} name='chevron-down' color='#fff'/>
         </TouchableOpacity>
       )}      
 
@@ -238,7 +240,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     height: 40,
     marginBottom: 12,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 8,
     width: '100%',
   },
