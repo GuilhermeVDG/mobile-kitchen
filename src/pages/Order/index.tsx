@@ -49,8 +49,6 @@ export default function Order(){
   const [modalProductVisible, setModalProductVisible] = useState(false);
   const [items, setItems] = useState<ItemProps[] | []>([]);
 
-  const [price, setPrice] = useState(0);
-
 
   useEffect(() => {
     async function loadInfo(){
@@ -105,16 +103,11 @@ export default function Order(){
         order_id: route.params?.order_id
       });
 
-      const resp = await api.get('/product/find', { params: { product_id: productSelected?.id } });
-
-      setPrice(price + ~~resp.data.price);
-
       const data = {
         id: response?.data.id,
         product_id: productSelected?.id as string,
         name: productSelected?.name as string,
-        amount: amount,
-        price: price
+        amount: amount
       }
 
       setItems(old => [...old, data]);
